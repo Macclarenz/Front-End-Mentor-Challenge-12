@@ -1,0 +1,386 @@
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap');
+
+// PRIMARY
+$active-btn: hsl(220, 98%, 61%);
+$check-btn-Background: linear-gradient(to right, hsl(192, 100%, 67%), hsl(280, 87%, 65%));
+
+// LIGHT THEME
+$light-container-background-and-heading: hsl(0, 0%, 98%);
+$light-body-background: hsl(236, 33%, 92%);
+$light-paragraph-strike-and-border: hsl(233, 11%, 84%);
+$light-button: hsl(236, 9%, 61%);
+$light-paragraph: hsl(235, 19%, 35%);
+
+// DARK THEME
+$dark-body-background: hsl(235, 21%, 11%);
+$dark-container-background: hsl(235, 24%, 19%);
+$dark-paragraph: hsl(234, 39%, 85%);
+$dark-button-hover: hsl(236, 33%, 92%);
+$dark-button: hsl(234, 11%, 52%);
+$dark-border: hsl(233, 14%, 35%);
+$dark-paragraph-strike: hsl(237, 14%, 26%);
+
+$dark-theme: (create-todo-container: $dark-container-background,
+    create-todo-text: $dark-container-background,
+    main-container: $dark-container-background,
+    btn-container: $dark-container-background,
+    todo-item-btn: $dark-container-background);
+
+$dark-text: (
+    create-todo-text: $dark-paragraph,
+    todo-item-name: $dark-paragraph,
+    btn-smaller-container: $dark-button,
+    btn-item-left: $dark-border,
+    btn-clear-complete: $dark-border
+);
+
+$josfine-sans: (regular: 400,
+    bold: 700);
+
+*,
+*:before,
+*:after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1,
+p,
+button,
+a,
+input::placeholder {
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+body {
+    background-image: url("../images/bg-mobile-light.jpg");
+    background-repeat: no-repeat;
+    padding-block: 3em;
+    font-size: 14px;
+    transition: all 1s ease;
+
+    &.dark-mode {
+        background-image: url("../images/bg-mobile-dark.jpg") !important;
+        background-color: $dark-body-background;
+
+        @each $class,
+        $bg-color in $dark-theme {
+            .#{$class} { background-color: $bg-color; }
+            transition: all 500ms ease;
+        }
+
+        @each $class, $color in $dark-text {
+            .#{$class} { color: $color; }
+            transition: all 250ms ease ;
+        }
+
+        .main-container,
+        .btn-container,
+        .btn-smaller-container { box-shadow: none !important; }
+
+        .create-submit-btn:hover {   
+            filter: drop-shadow(rgba(255, 255, 255, 0.432) 0 5px .5em); 
+        }
+
+        .todo-item-btn { border: 1px solid $dark-border; }
+
+        .create-todo-text::placeholder { color: $dark-button; }
+
+        .todo-item-container { 
+            border-color: $dark-border;
+
+            &.completed p {
+                color: $dark-paragraph-strike;
+                text-decoration: line-through;
+            }
+        }
+
+        .btn-container button:hover { color: $dark-button-hover; }
+
+        footer {
+            & > p { color: $dark-button; }  
+            .attribution { color: $dark-paragraph; }
+        }
+    }
+}
+
+@mixin flex($justify, $align, $direction, $bool: true) {
+    @if $bool==true {
+        display: flex;
+        justify-content: $justify;
+        align-items: $align;
+        flex-direction: $direction;
+    }
+
+    else {
+        display: revert;
+    }
+}
+
+header,
+.create-todo-container,
+main,
+footer {
+    width: 85%;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+header {
+    color: $light-container-background-and-heading;
+    margin-bottom: 2.5em;
+    @include flex(space-between, center, row);
+
+    h1 {
+        font-size: 28px;
+        font-weight: map-get($josfine-sans, bold);
+        text-transform: uppercase;
+        letter-spacing: 10px;
+    }
+}
+
+.create-todo-container,
+main,
+.btn-container {
+    background-color: $light-container-background-and-heading;
+}
+
+.create-todo-container,
+.todo-item-container {
+    padding: 1em 1em;
+    @include flex(flex-start, center, row);
+
+    & .todo-item-btn {
+        border: 1px solid $light-paragraph-strike-and-border;
+        border-radius: 50%;
+        margin-right: 1em;
+        @include flex(center, center, row);
+        height: 22px;
+        width: 22px;
+    }
+
+    & .todo-item-remove-btn {
+        margin-left: auto;
+
+        img {
+            height: 15px;
+            width: 15px;
+            pointer-events: none;
+        }
+
+    }
+}
+
+.create-todo-container,
+.todo-list,
+.btn-container,
+.btn-smaller-container {
+    border-radius: .5em;
+}
+
+// CREATE NEW TODO
+.create-todo-container {
+    margin-bottom: 1em;
+
+    & form {
+        @include flex(space-between, center, row);
+
+        & button {
+            background: $check-btn-Background;
+            border: none;
+            border-radius: 50%;
+            color: white;
+            padding: .50em;
+            width: max-content;
+            transition: all 250ms ease;
+            @include flex(center, center, row);
+
+            & svg {
+                height: 18px;
+                width: 18px;
+                pointer-events: none;
+            }
+
+            &:hover { filter: drop-shadow(rgba(0, 0, 0, 0.192) 0 5px .5em); }
+        }
+
+    }
+
+    & form, input {
+        background-color: transparent;
+        margin: 0 auto;
+        width: 90%;
+    }
+
+    & input {
+        border: none;
+        color: $light-paragraph;
+        font-weight: map-get($josfine-sans, bold);
+        width: 100%;
+
+        &::placeholder { color: $light-button; }
+
+        &:focus-within { outline: none; }
+    }
+}
+
+// LIST OF TODO
+main {
+    border-radius: .5em;
+    box-shadow: rgba(121, 121, 121, 0.233) 0px 1.5em 3em;
+
+    & p {
+        color: $light-paragraph;
+        font-weight: map-get($josfine-sans, regular);
+        font-size: 12.5px;
+        cursor: pointer;
+        transition: all 250ms ease;
+    }
+
+    & .todo-list {
+        @include flex(stretch, stretch, column);
+        transition: all 250ms ease;
+    }
+
+    .todo-item-container {
+        border-bottom: 1px solid $light-paragraph-strike-and-border;
+        cursor: move;
+
+        & .todo-iten-name {
+            pointer-events: none;
+        }
+
+        &.completed {
+            .todo-item-btn { background-image: $check-btn-Background; }
+    
+            p {
+                color: $light-paragraph-strike-and-border;
+                text-decoration: line-through;
+            }
+        }
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    .btn-container {
+        @include flex(space-between, center, row);
+        padding: 1em;
+        position: relative;
+
+        button,
+        p {
+            background: transparent;
+            border: none;
+            color: $light-button;
+            font-size: 12.5px;
+            font-weight: map-get($josfine-sans, bold);
+            transition: all 250ms ease;
+        }
+
+        button { cursor: pointer; }
+
+        .btn-item-left { pointer-events: none; }
+
+        button:hover { color: $light-paragraph; }
+
+        .btn-smaller-container {
+            background-color: inherit;
+            box-shadow: rgba(121, 121, 121, 0.233) 0px 1.5em 3em;
+            padding: inherit;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            width: 100%;
+            margin-top: 1em;
+            @include flex(center, center, row);
+
+            button.active { color: $active-btn !important; }
+
+            button+button {
+                margin-left: 1em;
+                font-size: 14.5px;
+            }
+        }
+    }
+}
+
+.todo-item-btn {
+    box-sizing: content-box;
+    position: relative;
+    background-color: $light-container-background-and-heading;
+    z-index: 1;
+    transition: all 250ms ease;
+
+    svg { 
+        pointer-events: none;
+
+        path {
+            opacity: 0;
+            transition: inherit;
+        }  
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        background-image: $check-btn-Background;
+        border-radius: 50%;
+        height: calc(100% + 4px);
+        width: calc(100% + 4px);
+        z-index: -1;
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0);
+        transition: inherit;
+    }
+
+    &:hover::before, &:hover svg path {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    &.checked svg path { opacity: 1; transform: scale(1); }
+
+    &.checked::before { opacity: 1; transform: scale(1); }
+}
+
+footer {
+    margin-top: 7em;
+    text-align: center;
+
+    p {
+        color: $light-paragraph-strike-and-border;
+        font-weight: map-get($josfine-sans, bold);
+    }
+}
+
+@media (min-width: 375px) {
+    body {
+        background-image: url("../images/bg-desktop-light.jpg");
+        background-repeat: no-repeat;
+
+        &.dark-mode {
+            background-image: url("../images/bg-desktop-dark.jpg") !important;
+        }
+    }
+}
+
+@media (min-width: 700px) {
+    .btn-smaller-container { 
+        box-shadow: none !important;
+        position: static !important;
+        width: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+}
+
+@media (min-width: 1000px) {
+    p, button, input::placeholder, input {
+        font-size: 15px !important;
+    }
+}

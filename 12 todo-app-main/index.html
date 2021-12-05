@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Todo app</title>
+
+  <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+  <style>
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+      margin-top: 1em;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  </style>
+
+  <script src = './main.js' defer></script>
+
+  <!-- SORTABLE (DRAG & DROP) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js" 
+  integrity="sha512-zYXldzJsDrNKV+odAwFYiDXV2Cy37cwizT+NkuiPGsa9X1dOz04eHvUWVuxaJ299GvcJT31ug2zO4itXBjFx4w==" 
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+  <!-- ANIMATION -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"
+  integrity="sha512-eP6ippJojIKXKO8EPLtsUMS+/sAGHGo1UN/38swqZa1ypfcD4I0V/ac5G3VzaHfDaklFmQLEs51lhkkVaqg60Q=="
+  crossorigin="anonymous" referrerpolicy="no-referrer" async></script>
+
+  <link rel="stylesheet" href="./SCSS/style.css">
+</head>
+
+<body>
+
+  <header>
+    <h1>Todo</h1>
+    <a href='#' class="header-theme-btn"><img src="./images/icon-moon.svg" alt="moon icon"></a>
+  </header>
+
+  <div class="create-todo-container">
+      <!-- <a href="#" class='create-todo-btn'><svg xmlns="http://www.w3.org/2000/svg" width="11" height="9"><path fill="none" stroke="#FFF" stroke-width="2" d="M1 4.304L3.696 7l6-6"/></svg></a> -->
+      <form id = 'myForm'>
+        <input type="text" class="create-todo-text" placeholder="Create a new todo">
+        <button type="submit" aria-role="button" class = 'create-submit-btn'><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="plus" class="svg-inline--fa fa-plus fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg></button>
+      </form>
+  </div>
+
+  <main class = 'main-container'>
+
+    <ul class="todo-list">
+      <li class="todo-item-container completed">
+        <a href="#" class='todo-item-btn checked'><svg xmlns="http://www.w3.org/2000/svg" width="11" height="9"><path fill="none" stroke="#FFF" stroke-width="2" d="M1 4.304L3.696 7l6-6"/></svg></a>
+        <p class="todo-item-name">Complete online JavaScript course</p>
+        <a href="#" class = 'todo-item-remove-btn'><img src="./images/icon-cross.svg" alt="X icon"></a>
+      </li>
+      <li class="todo-item-container">
+        <a href="#" class='todo-item-btn'><svg xmlns="http://www.w3.org/2000/svg" width="11" height="9"><path fill="none" stroke="#FFF" stroke-width="2" d="M1 4.304L3.696 7l6-6"/></svg></a>
+        <p class="todo-item-name">Jog around the park 3x</p>
+        <a href="#" class = 'todo-item-remove-btn'><img src="./images/icon-cross.svg" alt="X icon"></a>
+      </li>
+      <li class="todo-item-container">
+        <a href="#" class='todo-item-btn'><svg xmlns="http://www.w3.org/2000/svg" width="11" height="9"><path fill="none" stroke="#FFF" stroke-width="2" d="M1 4.304L3.696 7l6-6"/></svg></a>
+        <p class="todo-item-name">10 minutes meditation</p>
+        <a href="#" class = 'todo-item-remove-btn'><img src="./images/icon-cross.svg" alt="X icon"></a>
+      </li>
+      <li class="todo-item-container">
+        <a href="#" class='todo-item-btn'><svg xmlns="http://www.w3.org/2000/svg" width="11" height="9"><path fill="none" stroke="#FFF" stroke-width="2" d="M1 4.304L3.696 7l6-6"/></svg></a>
+        <p class="todo-item-name">Read for 1 hour</p>
+        <a href="#" class = 'todo-item-remove-btn'><img src="./images/icon-cross.svg" alt="X icon"></a>
+      </li>
+      <li class="todo-item-container">
+        <a href="#" class='todo-item-btn'><svg xmlns="http://www.w3.org/2000/svg" width="11" height="9"><path fill="none" stroke="#FFF" stroke-width="2" d="M1 4.304L3.696 7l6-6"/></svg></a>
+        <p class="todo-item-name">Pick up groceries</p>
+        <a href="#" class = 'todo-item-remove-btn'><img src="./images/icon-cross.svg" alt="X icon"></a>
+      </li>
+      <li class="todo-item-container">
+        <a href="#" class='todo-item-btn'><svg xmlns="http://www.w3.org/2000/svg" width="11" height="9"><path fill="none" stroke="#FFF" stroke-width="2" d="M1 4.304L3.696 7l6-6"/></svg></a>
+        <p class="todo-item-name">Complete Todo App on Frontend Mentor</p>
+        <a href="#" class = 'todo-item-remove-btn'><img src="./images/icon-cross.svg" alt="X icon"></a>
+      </li>
+    </ul>
+    <!-- Add dynamic number -->
+    <div class="btn-container">
+      <p class = 'btn-item-left'><span class="items-left">0</span> items left</p>
+      <div class="btn-smaller-container">
+        <button class='btn-all active'>All</button>
+        <button class='btn-active'>Active</button>
+        <button class='btn-complete'>Completed</button>
+      </div>
+      <button class='btn-clear-complete'>Clear Completed</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>Drag and drop to reorder list</p>
+    <div class="attribution">
+      Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+      Coded by <a href="#">Mac</a>.
+    </div>
+  </footer>
+</body>
+
+</html>
