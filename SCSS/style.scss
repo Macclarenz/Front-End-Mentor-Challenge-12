@@ -246,9 +246,17 @@ main {
     .todo-item-container {
         border-bottom: 1px solid $light-paragraph-strike-and-border;
         cursor: move;
+        max-width: 100%;
+        text-overflow: ellipsis;
 
-        & .todo-iten-name {
+
+        & .todo-item-name {
             pointer-events: none;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow-x: hidden;
+
+            max-width: 50ch;
         }
 
         &.completed {
@@ -314,6 +322,8 @@ main {
     background-color: $light-container-background-and-heading;
     z-index: 1;
     transition: all 250ms ease;
+    // height: 24px;
+    // width: 24px;
 
     svg { 
         pointer-events: none;

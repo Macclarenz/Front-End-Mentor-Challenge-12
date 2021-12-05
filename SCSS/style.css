@@ -411,10 +411,16 @@ main .todo-list else {
 main .todo-item-container {
   border-bottom: 1px solid #d2d3db;
   cursor: move;
+  max-width: 100%;
+  text-overflow: ellipsis;
 }
 
-main .todo-item-container .todo-iten-name {
+main .todo-item-container .todo-item-name {
   pointer-events: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow-x: hidden;
+  max-width: 50ch;
 }
 
 main .todo-item-container.completed .todo-item-btn {

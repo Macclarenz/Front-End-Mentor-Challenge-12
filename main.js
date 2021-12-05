@@ -28,7 +28,7 @@ function createList(e) {
         listContainer.appendChild(createLi)
 
         createLi.innerHTML = `
-    <a href="#" class='todo-item-btn'><svg xmlns="http://www.w3.org/2000/svg" width="11" height="9"><path fill="none" stroke="#FFF" stroke-width="2" d="M1 4.304L3.696 7l6-6"/></svg></a>
+    <a href="#" class='todo-item-btn' aria-roledescription="check button"><svg xmlns="http://www.w3.org/2000/svg" width="11" height="9"><path fill="none" stroke="#FFF" stroke-width="2" d="M1 4.304L3.696 7l6-6"/></svg></a>
     <p class="todo-item-name">${inputCreateList.value}</p>
     <a href="#" class = 'todo-item-remove-btn'><img src="./images/icon-cross.svg" alt="X icon"></a>
     
@@ -36,7 +36,7 @@ function createList(e) {
         inputCreateList.value = ''
         inputCreateList.placeholder = 'Create a new todo'
 
-        reverseAnimation(createLi)
+        createAnimation(createLi)
     } else {
         inputCreateList.placeholder = 'Input must not be empty'
     }
@@ -100,7 +100,6 @@ function clearCompleted() {
     list.forEach(el => {
         if (el.classList.contains('completed')) {
             removeAnimation(el)
-            // setTimeout(() => el.remove(), 800)
         }
     })
 
@@ -133,7 +132,6 @@ activeBtn.addEventListener('click', e => {
     listItem.forEach((el) => {
         if (el.classList.contains('completed')) {
             listAnimation(el)
-            setTimeout(() => el.classList.add('hidden'), 800)
         } else {
             reverseAnimation(el)
         }
@@ -152,7 +150,6 @@ completedBtn.addEventListener('click', e => {
     listItem.forEach((el) => {
         if (!el.classList.contains('completed')) {
             listAnimation(el)
-            setTimeout(() => el.classList.add('hidden'), 800)
         } else {
             reverseAnimation(el)
         }
@@ -181,7 +178,13 @@ function removeHide() {
 
 
 // ANIMATION
-// function
+function createAnimation(element) {
+    const tl = gsap.timeline({defaults: {ease: 'Power1.out.easeNone'}})
+
+    tl.fromTo(element, 
+        {opacity: 0, x: 100, overflow: 'hidden', padding: 0, maxHeight: 0}, 
+        {opacity: 1, x: 0, overflow: 'visiblie', padding: '1em', maxHeight: 'max-content', duration: .5})
+}
 
 function removeAnimation(element) {
     const tl = gsap.timeline(
@@ -190,8 +193,9 @@ function removeAnimation(element) {
 
     tl.to(element, {opacity: 0, duration: .25, x: 100})
     tl.to(element, {duration: .25, maxHeight: 0, overflow: 'hidden', padding: 0})
+
+    // REMOVES ELEMENT
     tl.to(element, {remove: () => {element.remove()}})
-    
 }
 
 function listAnimation(element) {
@@ -209,7 +213,7 @@ function reverseAnimation(element) {
     )
 
     tl.to(element, {duration: .5, maxHeight: 'max-content', overflow: 'visible', padding: '1em'})
-    tl.fromTo(element, {opacity: 0}, {opacity: 1, x: 0, duration: .5})
+    tl.to(element, {opacity: 1, x: 0, duration: .5})
 
 }
 
